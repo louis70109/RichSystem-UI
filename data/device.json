@@ -1,0 +1,25 @@
+{
+  "devices": [
+    {
+      "did": "vbn",
+      "token": "fhoo",
+      "user_id": "Ud6ab866a67af711d594b12b0baffb8ac",
+      "status": 0,
+      "id": 1
+    },
+    {
+      "did": "qwer",
+      "token": "asfg",
+      "user_id": "Ud6ab866a67af711d594b12b0baffb8ac",
+      "status": 0,
+      "id": 2
+    },
+    {
+      "did": "aqwer",
+      "token": "fhh",
+      "user_id": "Ud6ab866a67af711d594b12b0baffb8ac",
+      "status": 0,
+      "id": 3
+    }
+  ]
+}

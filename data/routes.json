@@ -1,0 +1,4 @@
+{
+  "/v1/devices": "/devices",
+  "/v1/devices/:did": "/devices?did=:did"
+}

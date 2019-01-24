@@ -1,11 +1,36 @@
 <template>
-  <div id="app">
+  <div id="sidebar">
+    <div
+      id="wrapper"
+      :class="{toggled: isToggle}"
+    >
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-brand">
+            <a href="/">管理者頁面</a>
+          </li>
+          <li><a href="charts">圖表系統</a></li>
+        </ul>
+      </div>
+      <!-- /#sidebar-wrapper -->
+      <div class="side-control">
+        <div class="side-cicle"></div>
+        <a
+          href="#"
+          class="side-toggle"
+          @click="ToggleSidebar"
+        ><i :class="['fas', isToggle ? 'fa-chevron-left' : 'fa-chevron-right']"></i></a>
+      </div>
+      <!-- <a href="#" id="toggle" @click="ToggleSidebar">Toggle Menu</a> -->
+    </div>
     <router-view />
   </div>
 </template>
 
 <script>
 export default {
+  name: "sidebar",
   data() {
     return {
       isToggle: false
@@ -16,20 +41,11 @@ export default {
       event.preventDefault();
       this.isToggle = !this.isToggle;
     }
-  },
-  beforeCreate() {
-    this.$liff.init(data => {});
   }
 };
 </script>
 
 <style lang="scss">
-.liff-input {
-  display: block;
-  margin: 10px auto;
-  padding: 10px;
-}
-
 .side-control {
   display: inline-block;
   float: left;

@@ -1,0 +1,23 @@
+<div class="devices">
+  <div class="devise_input">
+    <h1>裝置管理 API 測試</h1>
+  <el-select v-model="stuffInpput" placeholder="請選擇" >
+    <el-option
+      v-for="item in options"
+      :key="item.value"
+      :label="item.value"
+      :value="item.value">
+    </el-option>
+  </el-select>
+  
+  <el-input
+  placeholder="请输入内容"
+  v-model="res_data"
+  clearable>
+  </el-input>
+  <el-button type="primary" icon="el-icon-search" @click="api_judge(res_command)" :disabled="!axiosShow">送出</el-button>
+  </div>
+  <hr>
+  <h4>輸出結果</h4>
+  <vue-json-editor class="json_output" v-model="response" :showBtns="false"></vue-json-editor>
+</div>

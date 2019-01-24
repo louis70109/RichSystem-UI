@@ -1,0 +1,57 @@
+<div class="sign">
+  <SideBar></SideBar>
+
+  <div class="dash-form">
+    <el-form :model="form.user"
+             ref="form.user"
+             label-width="80px"
+             :rules="rules">
+      <el-row>
+        <el-col>
+          <el-form-item label="帳號"
+                        prop="account">
+            <el-input type="text"
+                      placeholder="帳號"
+                      v-model="form.user.account"
+                      clearable>
+            </el-input>
+          </el-form-item>
+          <el-form-item label="密碼"
+                        prop="password">
+            <el-input type="password"
+                      placeholder="密碼"
+                      v-model="form.user.password"
+                      clearable>
+            </el-input>
+          </el-form-item>
+          <el-form-item label="姓名"
+                        prop="name">
+            <el-input type="text"
+                      placeholder="姓名"
+                      v-model="form.user.name"
+                      clearable>
+            </el-input>
+          </el-form-item>
+          <el-form-item label="信箱"
+                        prop="email">
+            <el-input type="text"
+                      placeholder="信箱"
+                      v-model="form.user.email"
+                      clearable>
+            </el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary"
+                       @click="submitForm('form.user')"
+                       :loading="btnStatus"
+                       round>註冊</el-button>
+            <router-link to="/login">
+              <el-button type="warning"
+                         round>返回登入</el-button>
+            </router-link>
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
+  </div>
+</div>

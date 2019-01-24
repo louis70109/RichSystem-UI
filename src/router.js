@@ -1,23 +1,47 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  mode: 'history',
+  routes: [{
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'DeviceSignUp',
+      component: () => import('./views/DeviceSignUp.vue')
+    }, {
+      path: '/devices/status',
+      name: 'DeviceStatus',
+      component: () => import('./views/DeviceStatus.vue')
+    }, {
+      path: '/devices/order',
+      name: 'DeviceOrder',
+      component: () => import('./views/DeviceOrder.vue')
+    }, {
+      path: '/devices/access',
+      name: 'DeviceAccess',
+      component: () => import('./views/DeviceAccess.vue')
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      path: '/login',
+      name: 'login',
+      component: () => import('./views/Login')
+    }, {
+      path: '/sign_up',
+      name: 'sign',
+      component: () => import('./views/Sign')
+    }, {
+      path: '/charts',
+      name: 'charts',
+      component: () => import('./views/Charts')
+    }, {
+      path: '/devices',
+      name: 'devices',
+      component: () => import('./views/Devices')
+    },
+    {
+      path: '*',
+      redirect: '/'
     }
   ]
 })

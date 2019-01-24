@@ -1,0 +1,39 @@
+<div class="login">
+  <SideBar></SideBar>
+
+  <div class="dash-form">
+    <el-form ref="form"
+             :model="user"
+             label-width="80px"
+             v-on:submit.prevent="submitForm">
+      <el-row>
+        <el-col>
+          <el-form-item label="帳號">
+            <el-input type="text"
+                      placeholder="帳號"
+                      v-model="user.account"
+                      clearable>
+            </el-input>
+          </el-form-item>
+          <el-form-item label="密碼">
+            <el-input type="password"
+                      placeholder="密碼"
+                      v-model="user.password"
+                      @keyup.enter.native="submitForm"
+                      clearable>
+            </el-input>
+          </el-form-item>
+          <el-button type="primary"
+                     @click="submitForm"
+                     :loading="btnStatus"
+                     round>登入</el-button>
+          <router-link to="/sign_up">
+            <el-button type="warning"
+                       round>前往註冊</el-button>
+          </router-link>
+        </el-col>
+      </el-row>
+
+    </el-form>
+  </div>
+</div>

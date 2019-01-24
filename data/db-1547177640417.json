@@ -1,0 +1,29 @@
+{
+  "devices": [
+    {
+      "did": "aaa",
+      "token": "112",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "did": "bbb",
+      "token": "qwer"
+    },
+    {
+      "id": 3,
+      "did": "ccc",
+      "token": "asdf"
+    },
+    {
+      "did": "ddd",
+      "token": "zxcv",
+      "id": 4
+    },
+    {
+      "did": "ppppp",
+      "token": "trtrr",
+      "id": 11
+    }
+  ]
+}

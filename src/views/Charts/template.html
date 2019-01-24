@@ -1,0 +1,97 @@
+<div class="dash">
+  <div class="chart-select">
+    <!-- <button class="btt"
+            type="button"
+            @click="addChart('line')">曲線圖</button>
+    <button class="btt"
+            type="button"
+            @click="addChart('histogram')">條狀圖</button> -->
+    <el-button type="primary"
+               @click="topic_modal('gauge')">儀表板</el-button>
+    <!-- <button class="btt"
+            type="button"
+            @click="addChart('pie')">派</button>
+    <button class="btt"
+            type="button"
+            @click="addChart('scatter')">分布圖</button> -->
+    刪除模式：<el-switch v-model="mask.deleteMask"
+               @click="changeMask('deleteMask')"></el-switch>
+
+
+    <el-button type="button"
+               @click="user_logout">登出</el-button>
+
+  </div>
+
+  <grid-layout :layout="layout"
+               :col-num="12"
+               :row-height="30"
+               :is-draggable="true"
+               :is-resizable="true"
+               :is-mirrored="false"
+               :vertical-compact="true"
+               :margin="[10, 10]"
+               :use-css-transforms="true">
+    <grid-item class="chart"
+               v-for="(item) in layout"
+               :x="item.x"
+               :y="item.y"
+               :w="item.w"
+               :h="item.h"
+               :i="item.i"
+               @resized="resizedEvent"
+               :key="item.i">
+
+      <div class="mask mask-delete"
+           :style="mask.deleteMask ? styleMask : ''">
+        <div class="button"
+             @click="itemClose(item.i)">
+          <i class="fa fa-trash fa-3x"></i>
+        </div>
+      </div>
+
+      <ve-histogram v-if="item.title === 'histogram'"
+                    :data="chartData[item.i]"
+                    :width="item.wPx"
+                    :height="item.hPx"
+                    :extend="{xAxis:
+      { axisLabel: { rotate: 45 } }}"
+                    :loading="loading">
+      </ve-histogram>
+
+      <ve-line v-if="item.title === 'line'"
+               :data="chartData[item.i]"
+               :width="item.wPx"
+               :height="item.hPx"
+               :loading="loading">
+      </ve-line>
+
+      <ve-pie v-if="item.title === 'pie'"
+              :data="chartData[item.i]"
+              :width="item.wPx"
+              :height="item.hPx"
+              :settings="{ dimension: '日期', metrics: '访问用户' }"
+              :loading="loading">
+      </ve-pie>
+
+      <ve-scatter v-if="item.title === 'scatter'"
+                  :data="chartData[item.i]"
+                  :width="item.wPx"
+                  :height="item.hPx"
+                  :loading="loading">
+      </ve-scatter>
+
+      <ve-gauge v-if="item.title === 'gauge'"
+                :data="gaugeData[item.i]"
+                :settings="{
+        dimension: 'type',
+        metrics: 'value'
+      }"
+                :width="item.wPx"
+                :height="item.hPx"
+                :loading="loading">
+      </ve-gauge>
+
+    </grid-item>
+  </grid-layout>
+</div>
