@@ -45,8 +45,8 @@ export default {
       this.$refs[user].validate(valid => {
         if (valid) {
           this.btnStatus = true;
-          this.$axios
-            .post("http://louis70109.asuscomm.com:3000/users", {
+          this.axios
+            .post("http://louis70109.asuscomm.com:3000/v1/users", {
               account: this.form.user.account,
               password: this.form.user.password,
               email: this.form.user.email,
@@ -55,8 +55,8 @@ export default {
             .then(res => {
               if (res.data.status === true) {
                 this.btnStatus = false;
-                this.$localStorage.set("user_id", res.data.id);
-                this.$localStorage.set("user_token", res.data.token);
+                this.$localStorage.set("user_id", res.data["Id"]);
+                this.$localStorage.set("user_token", res.data["Token"]);
                 this.$router.push("Charts");
               } else {
                 alert("註冊失敗，請檢查欄位內容");

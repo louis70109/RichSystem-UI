@@ -1,39 +1,47 @@
-# signup_line_liff
+# vue-gridstack-vcharts
 
-## Project setup
-```
+> 目前還在開墾中✍️
+
+## Target
+
+*  vuejs 
+*  gridstack  width: 1=142px , height: 1=30px
+*  v-charts
+
+## Pachages
+* [v-charts](https://v-charts.js.org/#/line)
+* [vue-grid-layout](https://github.com/jbaysolutions/vue-grid-layout)
+
+## Build Setup
+
+``` bash
+# install dependencies
 npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+# serve with hot reload at localhost:8080
+npm run dev
 
-### Compiles and minifies for production
-```
+# build for production with minification
 npm run build
-```
 
-### Run your tests
+# build for production and view the bundle analyzer report
+npm run build --report
 ```
-npm run test
-```
+## Problem
 
-### Lints and fixes files
-```
-npm run lint
-```
+ WARNING  Compiled with 1 warnings                            13:15:39
 
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
+ warning  in ./src/components/Dash/template.html
 
-### Run your unit tests
-```
-npm run test:unit
-```
+(Emitted value instead of an instance of Error) <grid-item v-for="item in layout">: component lists rendered with v-for should have explicit keys. See https://vuejs.org/guide/list.html#key for more info.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+ @ ./src/components/Dash/index.vue 11:0-303
+ @ ./src/router/index.js
+ @ ./src/main.js
+ @ multi (webpack)-dev-server/client?http://localhost:8080 webpack/hot/dev-server ./src/main.js
+
+
+
+---
+
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

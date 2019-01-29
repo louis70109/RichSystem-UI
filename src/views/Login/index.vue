@@ -1,10 +1,6 @@
 <script>
-import SideBar from "../../components/sidebar.vue";
 export default {
   name: "login",
-  components: {
-    SideBar
-  },
   data() {
     return {
       user: {
@@ -17,8 +13,8 @@ export default {
   methods: {
     submitForm() {
       this.btnStatus = true;
-      this.$axios
-        .post("http://louis70109.asuscomm.com:3000/users/login", {
+      this.axios
+        .post("http://louis70109.asuscomm.com:3000/v1/users/login", {
           account: this.user.account,
           password: this.user.password
         })

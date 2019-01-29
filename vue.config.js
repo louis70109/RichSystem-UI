@@ -18,5 +18,8 @@ module.exports = {
       }),
       // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     ]
+  },
+  devServer: {
+    disableHostCheck: true
   }
 }

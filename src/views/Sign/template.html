@@ -1,6 +1,4 @@
 <div class="sign">
-  <SideBar></SideBar>
-
   <div class="dash-form">
     <el-form :model="form.user"
              ref="form.user"
@@ -40,7 +38,7 @@
                       clearable>
             </el-input>
           </el-form-item>
-          <el-form-item>
+          <div class="login-btn">
             <el-button type="primary"
                        @click="submitForm('form.user')"
                        :loading="btnStatus"
@@ -49,7 +47,7 @@
               <el-button type="warning"
                          round>返回登入</el-button>
             </router-link>
-          </el-form-item>
+          </div>
         </el-col>
       </el-row>
     </el-form>

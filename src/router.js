@@ -1,26 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import axios from 'axios'
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [{
-      path: '/',
+      path: '/devices',
       name: 'DeviceSignUp',
+      children: [{
+        path: '/status',
+        name: 'DeviceStatus',
+        component: () => import('./views/DeviceStatus.vue')
+      }, {
+        path: '/order',
+        name: 'DeviceOrder',
+        component: () => import('./views/DeviceOrder.vue')
+      }, {
+        path: '/access',
+        name: 'DeviceAccess',
+        component: () => import('./views/DeviceAccess.vue')
+      }],
       component: () => import('./views/DeviceSignUp.vue')
-    }, {
-      path: '/devices/status',
-      name: 'DeviceStatus',
-      component: () => import('./views/DeviceStatus.vue')
-    }, {
-      path: '/devices/order',
-      name: 'DeviceOrder',
-      component: () => import('./views/DeviceOrder.vue')
-    }, {
-      path: '/devices/access',
-      name: 'DeviceAccess',
-      component: () => import('./views/DeviceAccess.vue')
     },
     {
       path: '/login',
@@ -31,7 +32,7 @@ export default new Router({
       name: 'sign',
       component: () => import('./views/Sign')
     }, {
-      path: '/charts',
+      path: '/',
       name: 'charts',
       component: () => import('./views/Charts')
     }, {
@@ -45,3 +46,26 @@ export default new Router({
     }
   ]
 })
+
+
+router.beforeEach((to, from, next) => {
+  let token = router.app.$localStorage.get('user_token')
+  //LINE要例外
+  if (to.name === "sign") {
+    next()
+  } else if (to.name !== "login" && !token) {
+    next('/login')
+  } else {
+    axios.get(`http://louis70109.asuscomm.com:3000/v1/users/${token}`).then(res => {
+      if (res.data.status === true) {
+        router.app.$localStorage.set('user_token', res.data.token)
+        router.app.$localStorage.set('user_id', res.data.id)
+        next()
+      } else next('/login')
+    }).catch(err => {
+      next('/login')
+    })
+  }
+  next()
+})
+export default router

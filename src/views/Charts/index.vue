@@ -1,8 +1,7 @@
 <script>
-import axios from "axios";
 import Vue from "vue";
 import VueGridLayout from "vue-grid-layout";
-
+import SideBar from "../../components/sidebar.vue";
 let GridLayout = VueGridLayout.GridLayout;
 let GridItem = VueGridLayout.GridItem;
 let MQTT = require("mqtt");
@@ -11,7 +10,8 @@ export default {
   name: "charts",
   components: {
     GridLayout,
-    GridItem
+    GridItem,
+    SideBar
   },
   data() {
     return {
@@ -50,35 +50,16 @@ export default {
       mqtt_topic: {}
     };
   },
-  mounted() {
-    let id = this.$localStorage.get("id");
-    // axios
-    //   .get(`http://louis70109.asuscomm.com:3000/users/${id}`)
-    //   .then(res => {
-    //     if (res.data.length === 0) this.$router.push("/");
-    //     else {
-    //       console.log("success");
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log("catch error %s", err);
-    //   });
-  },
   beforeDestroy() {
     let client = MQTT.connect("mqtt://18.237.107.177:8083");
     client.end();
     let id = this.$localStorage.get("id");
-
-    axios.post("http://louis70109.asuscomm.com:3000/charts", {
-      layout: this.layout
-    });
   },
   methods: {
     user_logout() {
-      this.$localStorage.remove("id");
-      this.$localStorage.remove("account");
-      this.$localStorage.remove("password");
-      this.$router.push("/");
+      this.$localStorage.remove("user_id");
+      this.$localStorage.remove("user_token");
+      this.$router.push("/login");
     },
     topic_modal(chart) {
       let _this = this;
@@ -87,7 +68,7 @@ export default {
         cancelButtonText: "取消"
       })
         .then(({ value }) => {
-          _this.addChart(chart, String(value));
+          _this.addChart(chart, value);
         })
         .catch(err => {
           this.$message({

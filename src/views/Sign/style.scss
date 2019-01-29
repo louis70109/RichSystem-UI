@@ -1,5 +1,14 @@
 .sign {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+
   .dash-form {
     display: inline-block;
+  }
+
+  .login-btn {
+    display: flex;
+    justify-content: space-around;
   }
 }
