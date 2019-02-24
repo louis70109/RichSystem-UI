@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import axios from 'axios'
-import { format } from 'url'
+import {
+  format
+} from 'url'
 Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
-  routes: [
-    {
+  routes: [{
       path: '/line_devices',
       name: 'DeviceSignUp',
       component: () => import('./views/DeviceSignUp.vue')
@@ -86,7 +87,7 @@ router.beforeEach((to, from, next) => {
       next('/')
     } else {
       axios
-        .get(`https://iotsboard.iots.tw/v1/users/${token}`)
+        .get(`https://iotser.iots.tw/v1/users/${token}`)
         .then(res => {
           if (res.data.status === true) {
             router.app.$localStorage.set('user_token', res.data.token)

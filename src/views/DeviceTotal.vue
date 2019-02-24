@@ -76,7 +76,7 @@ export default {
       line: "",
       token: ""
     },
-    backend_ip: "https://63c6fbdc.ngrok.io"
+    backend_ip: "https://iotsser.iots.tw"
   }),
 
   mounted() {

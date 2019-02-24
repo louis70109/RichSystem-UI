@@ -6,7 +6,6 @@
       :model="device"
       label-width="80px"
     >
-      {{this.backend_ip}}
       <el-form-item label="編號">
         <el-input v-model="device.id"></el-input>
       </el-form-item>
