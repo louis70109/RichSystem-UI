@@ -71,7 +71,7 @@ export default {
         });
     },
     chart_mqtt(self, topic, c_type, last_idx) {
-      let client = MQTT.connect("mqtt://34.217.228.207:8083");
+      let client = MQTT.connect("mqtt://iotser.iots.tw:8083");
       let _this = this;
       client.unsubscribe(topic, err => {
         console.log("Error unSub: %s", err);
@@ -208,7 +208,7 @@ export default {
     const layout = JSON.stringify(this.layout);
     const gague = JSON.stringify(this.gaugeData);
     const chart = JSON.stringify(this.chartData);
-    let client = MQTT.connect("mqtt://18.237.107.177:8083");
+    let client = MQTT.connect("mqtt://iotser.iots.tw:8083");
     client.end();
     let id = this.$localStorage.get("id");
   }

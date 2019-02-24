@@ -37,7 +37,8 @@ export default {
           { min: 6, message: "長度需大於 6", trigger: "blur" }
         ]
       },
-      btnStatus: false
+      btnStatus: false,
+      backend_ip: "https://iotser.iots.tw"
     };
   },
   methods: {
@@ -46,7 +47,7 @@ export default {
         if (valid) {
           this.btnStatus = true;
           this.axios
-            .post("http://louis70109.asuscomm.com:3000/v1/users", {
+            .post(`${this.backend_ip}/v1/users`, {
               account: this.form.user.account,
               password: this.form.user.password,
               email: this.form.user.email,

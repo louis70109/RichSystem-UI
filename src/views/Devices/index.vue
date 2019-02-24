@@ -10,13 +10,14 @@ export default {
       },
       dialogFormVisible: false,
       formLabelWidth: "120px",
-      mqttTopicKey: ""
+      mqttTopicKey: "",
+      backend_ip: "https://iotser.iots.tw"
     };
   },
   created() {
     let id = this.$localStorage.get("user_id");
     this.axios
-      .get(`http://louis70109.asuscomm.com:3000/v1/users/${id}/devices`)
+      .get(`${this.backend_ip}/v1/users/${id}/devices`)
       .then(res => {
         let r = res.data;
         let d = this.deviceData;

@@ -13,14 +13,15 @@ export default {
         account: "",
         password: ""
       },
-      btnStatus: false
+      btnStatus: false,
+      backend_ip: "https://iotser.iots.tw"
     };
   },
   methods: {
     submitForm() {
       this.btnStatus = true;
       this.axios
-        .post("http://louis70109.asuscomm.com:3000/v1/users/login", {
+        .post(`${this.backend_ip}/v1/users/login`, {
           account: this.user.account,
           password: this.user.password
         })
