@@ -58,6 +58,11 @@ export default {
                 this.$localStorage.set("user_id", res.data["Id"]);
                 this.$localStorage.set("user_token", res.data["Token"]);
                 this.$router.push("Charts");
+                this.$notify({
+                  title: "成功",
+                  message: "这是一条成功的提示消息",
+                  type: "success"
+                });
               } else {
                 alert("註冊失敗，請檢查欄位內容");
                 this.btnStatus = false;

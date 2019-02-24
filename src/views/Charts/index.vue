@@ -16,24 +16,22 @@ export default {
   data() {
     return {
       layout: [
-        // {
-        //   x: 0,
-        //   y: 0,
-        //   w: 2,
-        //   h: 4,
-        //   i: "0",
-        //   wPx: "200px",
-        //   hPx: "200px",
-        //   title: "line"
-        // }
+        {
+          x: 0,
+          y: 0,
+          w: 2,
+          h: 4,
+          i: "0",
+          wPx: "200px",
+          hPx: "200px",
+          title: "line"
+        }
       ],
       chartData: {
-        // "0": {
-        //   columns: ["日期", "访问用户", "下单用户", "下单率"],
-        //   rows: [
-        //     { 日期: "1/1", 访问用户: 1393, 下单用户: 1093, 下单率: 0.32 }
-        //   ]
-        // }
+        "0": {
+          columns: ["日期", "访问用户", "下单用户", "下单率"],
+          rows: [{ 日期: "1/1", 访问用户: 1393, 下单用户: 1093, 下单率: 0.32 }]
+        }
       },
       gaugeData: {
         // "1": {
@@ -49,11 +47,6 @@ export default {
       },
       mqtt_topic: {}
     };
-  },
-  beforeDestroy() {
-    let client = MQTT.connect("mqtt://18.237.107.177:8083");
-    client.end();
-    let id = this.$localStorage.get("id");
   },
   methods: {
     user_logout() {
@@ -77,22 +70,8 @@ export default {
           });
         });
     },
-    just_mqtt() {
-      let client = MQTT.connect("mqtt://18.237.107.177:8083");
-      client.on("connect", function() {
-        client.subscribe("presence", function(err) {
-          if (!err) {
-            client.publish("presence", "subcribe ok");
-          }
-        });
-      });
-
-      client.on("message", function(t, message) {
-        console.log(message.toString());
-      });
-    },
     chart_mqtt(self, topic, c_type, last_idx) {
-      let client = MQTT.connect("mqtt://18.237.107.177:8083");
+      let client = MQTT.connect("mqtt://34.217.228.207:8083");
       let _this = this;
       client.unsubscribe(topic, err => {
         console.log("Error unSub: %s", err);
@@ -220,6 +199,18 @@ export default {
     changeMask() {
       this.mask["deleteMask"] = this.mask["deleteMask"] ? false : true;
     }
+  },
+  beforeDestroy() {
+    /*
+    charts -> this.layout
+    chart_attach -> gague, chart (type判斷)
+    */
+    const layout = JSON.stringify(this.layout);
+    const gague = JSON.stringify(this.gaugeData);
+    const chart = JSON.stringify(this.chartData);
+    let client = MQTT.connect("mqtt://18.237.107.177:8083");
+    client.end();
+    let id = this.$localStorage.get("id");
   }
 };
 </script>

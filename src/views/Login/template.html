@@ -1,5 +1,11 @@
 <div class="login">
   <div class="dash-form">
+    <div class="progress">
+      目前網站進度:
+      <el-progress type="circle"
+                   :percentage="60"></el-progress>
+    </div>
+
     <el-form ref="form"
              :model="user"
              label-width="80px"
@@ -30,6 +36,7 @@
               <el-button type="warning"
                          round>前往註冊</el-button>
             </router-link>
+            <LineLogin></LineLogin>
           </div>
         </el-col>
       </el-row>

@@ -46,7 +46,7 @@
 </template>
 <script>
 export default {
-  name: "DeviceStatus",
+  name: "DeviceTotal",
   data: () => ({
     profile: { userId: "", displayName: "", pictureUrl: "", statusMessage: "" },
     devices: [
@@ -76,7 +76,7 @@ export default {
       line: "",
       token: ""
     },
-    backend_ip: "https://iotser.iots.tw"
+    backend_ip: "https://63c6fbdc.ngrok.io"
   }),
 
   mounted() {

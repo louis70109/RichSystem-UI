@@ -1,6 +1,12 @@
 <script>
+import Vue from "vue";
+import LineLogin from "../../components/linelogin.vue";
+
 export default {
   name: "login",
+  components: {
+    LineLogin
+  },
   data() {
     return {
       user: {

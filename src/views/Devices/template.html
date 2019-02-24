@@ -1,23 +1,54 @@
 <div class="devices">
-  <div class="devise_input">
-    <h1>裝置管理 API 測試</h1>
-  <el-select v-model="stuffInpput" placeholder="請選擇" >
-    <el-option
-      v-for="item in options"
-      :key="item.value"
-      :label="item.value"
-      :value="item.value">
-    </el-option>
-  </el-select>
-  
-  <el-input
-  placeholder="请输入内容"
-  v-model="res_data"
-  clearable>
-  </el-input>
-  <el-button type="primary" icon="el-icon-search" @click="api_judge(res_command)" :disabled="!axiosShow">送出</el-button>
+  <div>
+    <el-input v-model="mqttTopicKey"
+              :disabled="true">
+    </el-input>
+    <el-button type="warning"
+               round
+               @click="generateKey">Generate key</el-button>
   </div>
-  <hr>
-  <h4>輸出結果</h4>
-  <vue-json-editor class="json_output" v-model="response" :showBtns="false"></vue-json-editor>
+  <el-button type="text"
+             @click="dialogFormVisible = true">註冊裝置</el-button>
+
+  <el-dialog title="收货地址"
+             :visible.sync="dialogFormVisible"
+             width="30%">
+    <el-form :model="form">
+      <el-form-item label="裝置序號"
+                    :label-width="formLabelWidth">
+        <el-input v-model="form.did"
+                  autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="授權碼"
+                    :label-width="formLabelWidth">
+        <el-input v-model="form.token"
+                  autocomplete="off"></el-input>
+        </el-select>
+      </el-form-item>
+    </el-form>
+    <div slot="footer"
+         class="dialog-footer">
+      <el-button @click="dialogFormVisible = false">取消</el-button>
+      <el-button type="primary"
+                 @click="dialogFormVisible = false; createDevice()">送出</el-button>
+    </div>
+  </el-dialog>
+
+
+  <el-table :data="deviceData"
+            border
+            style="width: 100%">
+    <el-table-column prop="name"
+                     label="姓名">
+    </el-table-column>
+    <el-table-column prop="did"
+                     label="裝置序號">
+    </el-table-column>
+    <el-table-column prop="token"
+                     label="授權碼">
+    </el-table-column>
+    <el-table-column prop="updated_at"
+                     label="日期">
+    </el-table-column>
+  </el-table>
 </div>

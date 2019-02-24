@@ -7,7 +7,7 @@
 <script>
 export default {
   beforeCreate() {
-    this.$liff.init(data => {});
+    this.$liff.init(function(data) {});
   }
 };
 </script>

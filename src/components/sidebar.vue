@@ -10,6 +10,7 @@
           <li class="sidebar-brand">
             <a href="/">管理者頁面</a>
           </li>
+          <li><a href="devices">裝置管理</a></li>
           <li><a href="charts">圖表系統</a></li>
         </ul>
       </div>
