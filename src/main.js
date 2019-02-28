@@ -20,6 +20,7 @@ Vue.use(VCharts)
 
 Vue.use(VueAxios, axios)
 Vue.prototype.$liff = window.liff
+Vue.prototype.$md5 = require('md5');
 Vue.config.productionTip = false
 
 new Vue({

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import axios from 'axios'
+import store from './store'
 import {
   format
 } from 'url'
@@ -19,16 +20,6 @@ const router = new Router({
       component: () => import('./views/DeviceStatus.vue')
     },
     {
-      path: '/line_devices/total',
-      name: 'DeviceTotal',
-      component: () => import('./views/DeviceTotal.vue')
-    },
-    {
-      path: '/line_devices/order',
-      name: 'DeviceOrder',
-      component: () => import('./views/DeviceOrder.vue')
-    },
-    {
       path: '/line_devices/access',
       name: 'DeviceAccess',
       component: () => import('./views/DeviceAccess.vue')
@@ -44,14 +35,24 @@ const router = new Router({
       component: () => import('./views/Sign')
     },
     {
-      path: '/',
-      name: 'charts',
-      component: () => import('./views/Charts')
+      path: '/manager',
+      name: 'manager',
+      component: () => import('./views/Manager')
     },
+    // {
+    //   path: '/',
+    //   name: 'charts',
+    //   component: () => import('./views/Charts')
+    // },
     {
-      path: '/devices',
+      path: '/',
       name: 'devices',
       component: () => import('./views/Devices')
+    },
+    {
+      path: '/about',
+      name: 'About',
+      component: () => import('./views/About.vue')
     },
     {
       path: '/users/profile',
@@ -66,19 +67,20 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  let token = router.app.$localStorage.get('user_token')
+  let user = store.getters.getUser
+  let tk = router.app.$localStorage.get('user_token')
   //LINE要例外
   const routes = [
     'sign',
     'DeviceStatus',
-    'DeviceOrder',
     'DeviceAccess',
     'DeviceSignUp',
-    'DeviceTotal'
+    'DeviceTotal',
+    'About'
   ]
   if (routes.includes(to.name)) {
     next()
-  } else if (to.name !== 'login' && !token) {
+  } else if (to.name !== 'login' && !tk) {
     next('/login')
   } else {
     if (to.query.id && to.query.token) {
@@ -87,15 +89,15 @@ router.beforeEach((to, from, next) => {
       next('/')
     } else {
       axios
-        .get(`https://iotser.iots.tw/v1/users/${token}`)
+        .get(`"https://iotser.iots.tw"/v1/users/${tk}`)
         .then(res => {
           if (res.data.status === true) {
-            router.app.$localStorage.set('user_token', res.data.token)
-            router.app.$localStorage.set('user_id', res.data.id)
+            store.dispatch('userCheck', res.data)
             next()
           } else next('/login')
         })
         .catch(err => {
+          alert(err)
           next('/login')
         })
     }

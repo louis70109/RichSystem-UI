@@ -1,19 +1,17 @@
 <div class="devices">
-  <div>
-    <el-input v-model="mqttTopicKey"
-              :disabled="true">
-    </el-input>
-    <el-button type="warning"
-               round
-               @click="generateKey">Generate key</el-button>
-  </div>
-  <el-button type="text"
-             @click="dialogFormVisible = true">註冊裝置</el-button>
+  <el-button type="primary"
+             round
+             @click="dialogDevice = true">註冊裝置</el-button>
 
-  <el-dialog title="收货地址"
-             :visible.sync="dialogFormVisible"
+  <el-dialog title="新增裝置"
+             :visible.sync="dialogDevice"
              width="30%">
     <el-form :model="form">
+      <el-form-item label="裝置名稱"
+                    :label-width="formLabelWidth">
+        <el-input v-model="form.name"
+                  placeholder="自定義裝置名稱"></el-input>
+      </el-form-item>
       <el-form-item label="裝置序號"
                     :label-width="formLabelWidth">
         <el-input v-model="form.did"
@@ -28,21 +26,45 @@
     </el-form>
     <div slot="footer"
          class="dialog-footer">
-      <el-button @click="dialogFormVisible = false">取消</el-button>
+      <el-button @click="dialogDevice = false">取消</el-button>
       <el-button type="primary"
-                 @click="dialogFormVisible = false; createDevice()">送出</el-button>
+                 @click="dialogDevice = false; createDevice()">送出</el-button>
     </div>
   </el-dialog>
 
+  <el-dialog title="Chart"
+             :visible.sync="dialogData"
+             width="30%"
+             center>
+    <span>
+      <ve-line :data="chartData"></ve-line>
+    </span>
+  </el-dialog>
+  <Logout></Logout>
 
   <el-table :data="deviceData"
             border
             style="width: 100%">
+    <el-table-column prop="id"
+                     label="#">
+    </el-table-column>
     <el-table-column prop="name"
-                     label="姓名">
+                     label="裝置名稱">
     </el-table-column>
     <el-table-column prop="did"
                      label="裝置序號">
+    </el-table-column>
+    <el-table-column prop="device_type"
+                     label="裝置型別">
+    </el-table-column>
+    <el-table-column prop="device_data"
+                     label="裝置資料">
+      <template slot-scope="scope">
+        <el-button type="primary"
+                   round
+                   size="mini"
+                   @click="dialogData = true;deviceChartData(scope.row.device_data)">圖表</el-button>
+      </template>
     </el-table-column>
     <el-table-column prop="token"
                      label="授權碼">

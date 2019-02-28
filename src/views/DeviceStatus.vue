@@ -37,6 +37,7 @@
     >
       <template slot-scope="scope">
         <el-tag
+          @click="publishOnline(scope.row)"
           :type="scope.row.online === 1? 'success' : 'info'"
           disable-transitions
         >{{scope.row.online ? "on" : "off"}}</el-tag>
@@ -45,6 +46,8 @@
   </el-table>
 </template>
 <script>
+let MQTT = require("mqtt");
+
 export default {
   name: "DeviceStatus",
   data: () => ({
@@ -125,6 +128,18 @@ export default {
         .catch(err => {
           alert("Error sending message: " + error);
         });
+    },
+    publishOnline(row) {
+      let status = row.online;
+      if (status === 1) status = 0;
+      else status = 1;
+      this.axios
+        .post(`${this.backend_ip}/v1/mqtt`, {
+          id: row.id.toString(),
+          token: row.token,
+          online: status.toString()
+        })
+        .then(res => {});
     }
   }
 };

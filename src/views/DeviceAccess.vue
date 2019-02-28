@@ -64,28 +64,46 @@ export default {
   methods: {
     submitForm() {
       this.axios
-        .post(
-          `${this.backend_ip}/v1/devices/${this.device.id}/${
-            this.device.token
-          }`,
-          { user_id: this.users.id }
-        )
-        .then(r => {
-          if (r.data.status) {
-            this.$liff
-              .sendMessages([
-                {
-                  type: "text",
-                  text: `裝置編號${r.data.devices.id}授權成功`
-                }
-              ])
-              .then(() => {
-                this.$liff.closeWindow();
-              })
-              .catch(err => {
-                alert("授權失敗");
+        .get(`${this.backend_ip}/v1/devices/find/${this.device.id}`, {
+          headers: { "Domain-Token": "1vv1233b67jnn5a06dd7ggga15" }
+        })
+        .then(res => {
+          let r = res.data;
+          if (
+            r.status &&
+            r.devices.user_id !== 0 &&
+            r.devices.token === this.device.token
+          ) {
+            this.axios
+              .post(
+                `${this.backend_ip}/v1/devices/${this.device.id}/${
+                  this.device.token
+                }`,
+                { user_id: this.users.id }
+              )
+              .then(r => {
+                if (r.data.status) {
+                  this.$liff
+                    .sendMessages([
+                      {
+                        type: "text",
+                        text: `裝置編號${r.data.devices.id}授權成功`
+                      }
+                    ])
+                    .then(() => {
+                      this.$liff.closeWindow();
+                    })
+                    .catch(err => {
+                      alert("授權失敗");
+                    });
+                } else alert("授權失敗");
               });
-          } else alert("授權失敗");
+          } else {
+            alert("裝置尚未註冊");
+          }
+        })
+        .catch(err => {
+          alert("裝置授權失敗");
         });
     },
 

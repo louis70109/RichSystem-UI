@@ -49,19 +49,18 @@ export default {
           this.axios
             .post(`${this.backend_ip}/v1/users`, {
               account: this.form.user.account,
-              password: this.form.user.password,
+              password: this.$md5(this.form.user.password),
               email: this.form.user.email,
               name: this.form.user.name
             })
             .then(res => {
               if (res.data.status === true) {
                 this.btnStatus = false;
-                this.$localStorage.set("user_id", res.data["Id"]);
-                this.$localStorage.set("user_token", res.data["Token"]);
-                this.$router.push("Charts");
+                this.$localStorage.set("user_id", res.data.users.id);
+                this.$localStorage.set("user_token", res.data.users.token);
+                this.$router.push("/");
                 this.$notify({
-                  title: "成功",
-                  message: "这是一条成功的提示消息",
+                  title: "註冊成功",
                   type: "success"
                 });
               } else {
